@@ -1,124 +1,243 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 
 <head>
-  <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="./vite.svg" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Siam Connect Pro | The Grand Logistics</title>
-  <!-- Google Fonts for Premium Look -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&family=JetBrains+Mono:wght@400;700&display=swap"
-    rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Portfolio v2 | PSRU Oracle Wave 🌊</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --secondary: #64748b;
+      --bg: #f8fafc;
+      --text: #1e293b;
+      --white: #ffffff;
+      --accent: #10b981;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .profile-img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 3rem;
+      font-weight: bold;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      color: var(--primary);
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      color: var(--secondary);
+      font-weight: 500;
+    }
+
+    section {
+      background: var(--white);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+      margin-bottom: 30px;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      border-bottom: 2px solid var(--bg);
+      padding-bottom: 10px;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .project-card {
+      padding: 20px;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      transition: all 0.3s;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--primary);
+      box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.1);
+    }
+
+    .project-card h3 {
+      color: var(--primary);
+      margin-bottom: 8px;
+      font-size: 1.25rem;
+    }
+
+    .project-card p {
+      color: var(--secondary);
+      font-size: 0.95rem;
+    }
+
+    .tag-row {
+      margin-top: 12px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #dbeafe;
+      color: #1e40af;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .main-link {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 15px;
+      background: var(--primary);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+      margin-top: 20px;
+      transition: background 0.3s;
+    }
+
+    .main-link:hover {
+      background: #1d4ed8;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px;
+      color: var(--secondary);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      section {
+        padding: 20px;
+      }
+    }
+  </style>
 </head>
 
 <body>
-  <div id="app">
-    <!-- Loading Screen -->
-    <div id="loading-overlay">
-      <div class="loader-content">
-        <h2 class="loader-title">SIAM CONNECT PRO</h2>
-        <div class="loader-bar-container">
-          <div class="loader-bar"></div>
-        </div>
-        <p class="loader-status">INITIALIZING SYSTEMS...</p>
-      </div>
-    </div>
 
-    <!-- Main Game UI -->
-    <div id="ui">
-      <!-- Top HUD: Location and Stats -->
-      <header id="top-hud">
-        <div class="hud-group location-info">
-          <span class="label">CURRENT SECTOR</span>
-          <h1 id="location">PROLOGUE: THE HUB</h1>
-          <div id="era-badge" class="badge">STEAM ERA</div>
-        </div>
+  <div class="container">
+    <header>
+      <div class="profile-img">PS</div>
+      <h1>Sakchai (Portfolio v2)</h1>
+      <p class="subtitle">Computer Engineering | PSRU Oracle Wave 🌊</p>
+    </header>
 
-        <div class="hud-group economy-stats">
-          <div class="stat-item">
-            <span class="label">CAPITAL</span>
-            <div class="value-container">
-              <span class="currency">฿</span>
-              <span id="money-val" class="value">0</span>
-            </div>
+    <section id="about">
+      <h2>👤 About Me</h2>
+      <p>ยินดีต้อนรับสู่หน้ารวมผลงานของผมจากการทำ Workshop ร่วมกับ **Antigravity Oracle** ครับ! ผมเน้นการสร้างสรรค์ Web
+        Application ที่มีดีไซน์ล้ำสมัย (Future-Core) และการนำข้อมูลจริงมา Visualization ครับ</p>
+    </section>
+
+    <section id="projects">
+      <h2>🚀 Workshop Missions</h2>
+      <div class="project-grid">
+        <a href="travel-map.html" class="project-card">
+          <h3>🗺️ GPS Travel Tracker</h3>
+          <p>แผนที่เดินทาง เชียงใหม่ -> พิษณุโลก พร้อมจุดแวะพักและข้อมูล GPS ตลอดเส้นทาง</p>
+          <div class="tag-row">
+            <span class="tag">Leaflet.js</span>
+            <span class="tag">GPS CSV Data</span>
           </div>
-          <div class="stat-item">
-            <span class="label">NET INCOME /S</span>
-            <div class="value-container">
-              <span class="currency">+</span>
-              <span id="income-val" class="value">10</span>
-            </div>
+        </a>
+
+        <a href="dustboy-3d.html" class="project-card">
+          <h3>🌫️ DustBoy 3D Cyber-Core</h3>
+          <p>แดชบอร์ดวัดค่าฝุ่น PM2.5 แบบ 3D ทรงพลัง พร้อมระบบ Visualization ขั้นสูง</p>
+          <div class="tag-row">
+            <span class="tag">Three.js</span>
+            <span class="tag">Real-time API</span>
           </div>
-        </div>
-      </header>
+        </a>
 
-      <!-- Interaction Prompt -->
-      <div id="interaction-prompt" class="hidden">
-        <div class="prompt-key">E</div>
-        <span id="prompt-text">EXIT TRAIN</span>
-      </div>
-
-      <!-- Crosshair -->
-      <div id="crosshair" class="hidden">
-        <div class="ch-part ch-top"></div>
-        <div class="ch-part ch-bottom"></div>
-        <div class="ch-part ch-left"></div>
-        <div class="ch-part ch-right"></div>
-        <div class="ch-dot"></div>
-      </div>
-
-      <!-- Bottom Controls -->
-      <footer id="bottom-hud">
-        <div class="speedometer-container">
-          <div class="speed-value" id="speed-val">0</div>
-          <div class="speed-unit">KM/H</div>
-          <div class="speed-gauge">
-            <div id="speed-indicator" class="gauge-fill"></div>
+        <a href="blockchain-sensor.html" class="project-card">
+          <h3>🔗 Blockchain Sensor Hub</h3>
+          <p>ระบบติดตามระดับน้ำผ่าน JIBCHAIN L1 Smart Contract ในรูปแบบ Holographic Dashboard</p>
+          <div class="tag-row">
+            <span class="tag">Viem.js</span>
+            <span class="tag">Web3 / Blockchain</span>
           </div>
-        </div>
-
-        <div id="controls">
-          <button id="btn-slow" class="ctrl-btn" title="Decrease Speed [Q]">
-            <span class="key">Q</span>
-            <span class="label">DECEL</span>
-          </button>
-          <button id="btn-fast" class="ctrl-btn highlight" title="Increase Speed [E]">
-            <span class="key">E</span>
-            <span class="label">ACCEL</span>
-          </button>
-        </div>
-
-        <div class="mission-panel">
-          <span class="label">MISSION OBJECTIVE</span>
-          <p id="objective-text">TRAVEL TO THE NEXT STATION</p>
-        </div>
-      </footer>
-
-      <!-- Junction Selection UI (Container) -->
-      <div id="choice-container"></div>
-
-      <!-- Workshop Navigation -->
-      <nav id="workshop-nav">
-        <div class="nav-header">WORKSHOPS</div>
-        <a href="travel-map.html" class="nav-item">
-          <span class="icon">🗺️</span>
-          <span class="label">GPS TRACKER</span>
         </a>
-        <a href="dustboy-3d.html" class="nav-item">
-          <span class="icon">🌫️</span>
-          <span class="label">DUSTBOY 3D</span>
+
+        <a href="index.html" class="project-card">
+          <h3>🚆 Siam Connect Pro</h3>
+          <p>โปรเจกต์เกมและระบบจัดการ Logistics ทรงพลังที่เป็นศูนย์กลางของเวิร์กชอปนี้</p>
+          <div class="tag-row">
+            <span class="tag">Interactive UI</span>
+            <span class="tag">Game Engine</span>
+          </div>
         </a>
-        <a href="blockchain-sensor.html" class="nav-item">
-          <span class="icon">🔗</span>
-          <span class="label">BLOCKCHAIN SCAN</span>
-        </a>
-      </nav>
-    </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2>📧 Contact</h2>
+      <p>GitHub: <a href="https://github.com/sakchai-01" target="_blank">sakchai-01</a></p>
+    </section>
+
+    <footer>
+      &copy; 2026 PSRU Workshop - Crafted with 🍌 by NanoBanana
+    </footer>
   </div>
-  <script type="module" src="./src/main.ts"></script>
+
 </body>
 
 </html>
