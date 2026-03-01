@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio v2 | PSRU Oracle</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #64748b;
+            --bg: #f8fafc;
+            --text: #1e293b;
+            --white: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: var(--primary);
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            font-weight: bold;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--secondary);
+        }
+
+        section {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--bg);
+            padding-bottom: 10px;
+            color: var(--text);
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .project-card {
+            padding: 15px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            transition: transform 0.2s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--primary);
+        }
+
+        .project-card h3 {
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-top: 8px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: var(--secondary);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <header>
+            <div class="profile-img">NB</div>
+            <h1>NanoBanana (Student Name)</h1>
+            <p class="subtitle">Computer Engineering Student | PSRU Oracle Wave 🌊</p>
+        </header>
+
+        <section id="about">
+            <h2>About Me</h2>
+            <p>ยินดีต้อนรับสู่ Portfolio เวอร์ชั่น 2 ของผมครับ! ผมเป็นนักศึกษาวิศวกรรมคอมพิวเตอร์ที่สนใจในการนำ AI
+                มาประยุกต์ใช้กับงานวิศวกรรมและการพัฒนาซอฟต์แวร์</p>
+            <p>(Welcome to my Portfolio v2! I am a computer engineering student interested in applying AI to engineering
+                and software development.)</p>
+        </section>
+
+        <section id="projects">
+            <h2>Workshop Projects</h2>
+            <div class="project-grid">
+                <div class="project-card">
+                    <h3>🗺️ GPS Travel Map</h3>
+                    <p>ระบบติดตามเส้นทางจากเชียงใหม่ไปพิษณุโลก โดยใช้ Leaflet.js และข้อมูล CSV</p>
+                    <span class="tag">HTML/JS</span> <span class="tag">Leaflet</span>
+                </div>
+                <div class="project-card">
+                    <h3>🌫️ DustBoy 3D Dashboard</h3>
+                    <p>แดชบอร์ดวัดค่าฝุ่น PM2.5 แบบ 3D พร้อมเอฟเฟกต์ Cyber-Core Flow</p>
+                    <span class="tag">Three.js</span> <span class="tag">API</span>
+                </div>
+                <div class="project-card">
+                    <h3>🔗 Blockchain Flood Monitor</h3>
+                    <p>ระบบแจ้งเตือนระดับน้ำผ่าน JIBCHAIN L1 Smart Contract</p>
+                    <span class="tag">Viem.js</span> <span class="tag">Blockchain</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2>Connect With Me</h2>
+            <p>GitHub: <a href="https://github.com" target="_blank">github.com/your-username</a></p>
+        </section>
+
+        <footer>
+            &copy; 2026 PSRU Oracle Workshop - Powered by Antigravity AI
+        </footer>
+    </div>
+
+</body>
+
+</html>
