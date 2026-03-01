@@ -4,169 +4,155 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Portfolio v2 | PSRU Oracle Wave 🌊</title>
+  <title>PSRU Workshop Hub | Future-Core 🌊</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;600;900&family=JetBrains+Mono:wght@400;700&display=swap"
+    rel="stylesheet">
   <style>
     :root {
-      --primary: #2563eb;
-      --secondary: #64748b;
-      --bg: #f8fafc;
-      --text: #1e293b;
-      --white: #ffffff;
-      --accent: #10b981;
+      --primary: #00f2ff;
+      --secondary: #7000ff;
+      --bg: #020205;
+      --glass: rgba(255, 255, 255, 0.03);
+      --border: rgba(255, 255, 255, 0.1);
     }
 
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
     }
 
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-    }
-
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 40px 20px;
-    }
-
-    header {
-      text-align: center;
-      margin-bottom: 60px;
-    }
-
-    .profile-img {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-      margin: 0 auto 20px;
+      color: white;
+      font-family: 'Outfit', sans-serif;
+      height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: white;
-      font-size: 3rem;
-      font-weight: bold;
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      background-image:
+        radial-gradient(circle at 50% 50%, rgba(112, 0, 255, 0.15) 0%, transparent 70%);
     }
 
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 10px;
-      color: var(--primary);
+    .portal-grid {
+      display: flex;
+      gap: 40px;
+      max-width: 1200px;
+      width: 100%;
+      padding: 20px;
+      perspective: 1000px;
     }
 
-    .subtitle {
-      font-size: 1.1rem;
-      color: var(--secondary);
-      font-weight: 500;
+    .portal-card {
+      flex: 1;
+      background: var(--glass);
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      padding: 60px 40px;
+      text-align: center;
+      text-decoration: none;
+      color: inherit;
+      transition: 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+      backdrop-filter: blur(20px);
+      position: relative;
+      overflow: hidden;
     }
 
-    section {
-      background: var(--white);
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    .portal-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.05));
+      opacity: 0;
+      transition: 0.6s;
+    }
+
+    .portal-card:hover {
+      transform: scale(1.05) rotateY(10deg);
+      border-color: var(--primary);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 242, 255, 0.2);
+    }
+
+    .portal-card:hover::before {
+      opacity: 1;
+    }
+
+    .icon {
+      font-size: 5rem;
       margin-bottom: 30px;
+      display: block;
+      filter: drop-shadow(0 0 10px var(--primary));
     }
 
     h2 {
-      font-size: 1.5rem;
-      margin-bottom: 20px;
-      border-bottom: 2px solid var(--bg);
-      padding-bottom: 10px;
-      color: var(--text);
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      font-size: 2.2rem;
+      font-weight: 900;
+      margin-bottom: 15px;
+      letter-spacing: -1px;
     }
 
-    .project-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 20px;
+    p {
+      color: rgba(255, 255, 255, 0.6);
+      line-height: 1.6;
+      margin-bottom: 30px;
     }
 
-    .project-card {
-      padding: 20px;
-      border: 1px solid #e2e8f0;
-      border-radius: 8px;
-      transition: all 0.3s;
-      text-decoration: none;
-      color: inherit;
-      display: block;
-    }
-
-    .project-card:hover {
-      transform: translateY(-5px);
-      border-color: var(--primary);
-      box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.1);
-    }
-
-    .project-card h3 {
-      color: var(--primary);
-      margin-bottom: 8px;
-      font-size: 1.25rem;
-    }
-
-    .project-card p {
-      color: var(--secondary);
-      font-size: 0.95rem;
-    }
-
-    .tag-row {
-      margin-top: 12px;
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .tag {
+    .btn {
       display: inline-block;
-      background: #dbeafe;
-      color: #1e40af;
-      padding: 4px 10px;
-      border-radius: 6px;
-      font-size: 0.75rem;
-      font-weight: 600;
-    }
-
-    .main-link {
-      display: block;
-      width: 100%;
-      text-align: center;
-      padding: 15px;
-      background: var(--primary);
-      color: white;
-      text-decoration: none;
-      border-radius: 8px;
+      padding: 12px 30px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--primary);
+      color: var(--primary);
+      border-radius: 50px;
       font-weight: bold;
-      margin-top: 20px;
-      transition: background 0.3s;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 0.8rem;
+      transition: 0.3s;
     }
 
-    .main-link:hover {
-      background: #1d4ed8;
+    .portal-card:hover .btn {
+      background: var(--primary);
+      color: black;
+      box-shadow: 0 0 20px var(--primary);
     }
 
-    footer {
+    .hub-title {
+      position: absolute;
+      top: 50px;
       text-align: center;
-      padding: 40px;
-      color: var(--secondary);
-      font-size: 0.9rem;
+      width: 100%;
     }
 
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 2rem;
+    .hub-title h1 {
+      font-size: 3rem;
+      font-weight: 900;
+      letter-spacing: 15px;
+      text-transform: uppercase;
+      background: linear-gradient(to right, #fff, var(--primary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      opacity: 0.8;
+    }
+
+    @media (max-width: 768px) {
+      .portal-grid {
+        flex-direction: column;
       }
 
-      section {
-        padding: 20px;
+      .hub-title h1 {
+        font-size: 1.5rem;
+        letter-spacing: 5px;
+      }
+
+      body {
+        height: auto;
+        padding: 100px 0;
       }
     }
   </style>
@@ -174,68 +160,24 @@
 
 <body>
 
-  <div class="container">
-    <header>
-      <div class="profile-img">PS</div>
-      <h1>Sakchai (Portfolio v2)</h1>
-      <p class="subtitle">Computer Engineering | PSRU Oracle Wave 🌊</p>
-    </header>
+  <div class="hub-title">
+    <h1>Workshop Hub</h1>
+  </div>
 
-    <section id="about">
-      <h2>👤 About Me</h2>
-      <p>ยินดีต้อนรับสู่หน้ารวมผลงานของผมจากการทำ Workshop ร่วมกับ **Antigravity Oracle** ครับ! ผมเน้นการสร้างสรรค์ Web
-        Application ที่มีดีไซน์ล้ำสมัย (Future-Core) และการนำข้อมูลจริงมา Visualization ครับ</p>
-    </section>
+  <div class="portal-grid">
+    <a href="portfolio-v2/cv-portfolio.html" class="portal-card">
+      <span class="icon">👤</span>
+      <h2>Future-CV</h2>
+      <p>หน้า Portfolio อนาคตที่รวมทุกเทคโนโลยี Web3, 3D และ Data Visualization ไว้อย่างสมบูรณ์แบบ</p>
+      <span class="btn">เข้าชมผลงาน</span>
+    </a>
 
-    <section id="projects">
-      <h2>🚀 Workshop Missions</h2>
-      <div class="project-grid">
-        <a href="travel-map.html" class="project-card">
-          <h3>🗺️ GPS Travel Tracker</h3>
-          <p>แผนที่เดินทาง เชียงใหม่ -> พิษณุโลก พร้อมจุดแวะพักและข้อมูล GPS ตลอดเส้นทาง</p>
-          <div class="tag-row">
-            <span class="tag">Leaflet.js</span>
-            <span class="tag">GPS CSV Data</span>
-          </div>
-        </a>
-
-        <a href="dustboy-3d.html" class="project-card">
-          <h3>🌫️ DustBoy 3D Cyber-Core</h3>
-          <p>แดชบอร์ดวัดค่าฝุ่น PM2.5 แบบ 3D ทรงพลัง พร้อมระบบ Visualization ขั้นสูง</p>
-          <div class="tag-row">
-            <span class="tag">Three.js</span>
-            <span class="tag">Real-time API</span>
-          </div>
-        </a>
-
-        <a href="blockchain-sensor.html" class="project-card">
-          <h3>🔗 Blockchain Sensor Hub</h3>
-          <p>ระบบติดตามระดับน้ำผ่าน JIBCHAIN L1 Smart Contract ในรูปแบบ Holographic Dashboard</p>
-          <div class="tag-row">
-            <span class="tag">Viem.js</span>
-            <span class="tag">Web3 / Blockchain</span>
-          </div>
-        </a>
-
-        <a href="index.html" class="project-card">
-          <h3>🚆 Siam Connect Pro</h3>
-          <p>โปรเจกต์เกมและระบบจัดการ Logistics ทรงพลังที่เป็นศูนย์กลางของเวิร์กชอปนี้</p>
-          <div class="tag-row">
-            <span class="tag">Interactive UI</span>
-            <span class="tag">Game Engine</span>
-          </div>
-        </a>
-      </div>
-    </section>
-
-    <section id="contact">
-      <h2>📧 Contact</h2>
-      <p>GitHub: <a href="https://github.com/sakchai-01" target="_blank">sakchai-01</a></p>
-    </section>
-
-    <footer>
-      &copy; 2026 PSRU Workshop - Crafted with 🍌 by NanoBanana
-    </footer>
+    <a href="train-simulation.html" class="portal-card" style="border-color: var(--secondary);">
+      <span class="icon" style="filter: drop-shadow(0 0 10px var(--secondary));">🚆</span>
+      <h2 style="color: #fff;">3D Railway</h2>
+      <p>ระบบจำลองการเดินรถไฟ 3D (Siam Connect Pro) ที่เชื่อมโยงเส้นทางลอจิสติกส์ของประเทศไทย</p>
+      <span class="btn" style="border-color: var(--secondary); color: var(--secondary);">เข้าชมโปรเจกต์</span>
+    </a>
   </div>
 
 </body>

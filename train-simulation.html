@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="./vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Siam Connect Pro | The Grand Logistics</title>
+  <!-- Google Fonts for Premium Look -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&family=JetBrains+Mono:wght@400;700&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+  <div id="app">
+    <!-- Loading Screen -->
+    <div id="loading-overlay">
+      <div class="loader-content">
+        <h2 class="loader-title">SIAM CONNECT PRO</h2>
+        <div class="loader-bar-container">
+          <div class="loader-bar"></div>
+        </div>
+        <p class="loader-status">INITIALIZING SYSTEMS...</p>
+      </div>
+    </div>
+
+    <!-- Main Game UI -->
+    <div id="ui">
+      <!-- Top HUD: Location and Stats -->
+      <header id="top-hud">
+        <div class="hud-group location-info">
+          <span class="label">CURRENT SECTOR</span>
+          <h1 id="location">PROLOGUE: THE HUB</h1>
+          <div id="era-badge" class="badge">STEAM ERA</div>
+        </div>
+
+        <div class="hud-group economy-stats">
+          <div class="stat-item">
+            <span class="label">CAPITAL</span>
+            <div class="value-container">
+              <span class="currency">฿</span>
+              <span id="money-val" class="value">0</span>
+            </div>
+          </div>
+          <div class="stat-item">
+            <span class="label">NET INCOME /S</span>
+            <div class="value-container">
+              <span class="currency">+</span>
+              <span id="income-val" class="value">10</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Interaction Prompt -->
+      <div id="interaction-prompt" class="hidden">
+        <div class="prompt-key">E</div>
+        <span id="prompt-text">EXIT TRAIN</span>
+      </div>
+
+      <!-- Crosshair -->
+      <div id="crosshair" class="hidden">
+        <div class="ch-part ch-top"></div>
+        <div class="ch-part ch-bottom"></div>
+        <div class="ch-part ch-left"></div>
+        <div class="ch-part ch-right"></div>
+        <div class="ch-dot"></div>
+      </div>
+
+      <!-- Bottom Controls -->
+      <footer id="bottom-hud">
+        <div class="speedometer-container">
+          <div class="speed-value" id="speed-val">0</div>
+          <div class="speed-unit">KM/H</div>
+          <div class="speed-gauge">
+            <div id="speed-indicator" class="gauge-fill"></div>
+          </div>
+        </div>
+
+        <div id="controls">
+          <button id="btn-slow" class="ctrl-btn" title="Decrease Speed [Q]">
+            <span class="key">Q</span>
+            <span class="label">DECEL</span>
+          </button>
+          <button id="btn-fast" class="ctrl-btn highlight" title="Increase Speed [E]">
+            <span class="key">E</span>
+            <span class="label">ACCEL</span>
+          </button>
+        </div>
+
+        <div class="mission-panel">
+          <span class="label">MISSION OBJECTIVE</span>
+          <p id="objective-text">TRAVEL TO THE NEXT STATION</p>
+        </div>
+      </footer>
+
+      <!-- Junction Selection UI (Container) -->
+      <div id="choice-container"></div>
+    </div>
+  </div>
+  <script type="module" src="./src/main.ts"></script>
+</body>
+
+</html>
