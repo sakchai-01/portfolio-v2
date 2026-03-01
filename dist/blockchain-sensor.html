@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚡ BLOCKCHAIN CORE | JIBCHAIN L1 Hyper-Visualizer</title>
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --bg: #020205;
+            --primary: #00f2ff;
+            --secondary: #7000ff;
+            --danger: #ff0055;
+            --white: #ffffff;
+            --glass: rgba(10, 15, 30, 0.4);
+            --border: rgba(0, 242, 255, 0.2);
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background-color: var(--bg);
+            color: var(--white);
+            font-family: 'Outfit', sans-serif;
+            overflow: hidden;
+        }
+
+        #canvas-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* UI Overlay */
+        .ui-root {
+            position: absolute;
+            inset: 30px;
+            pointer-events: none;
+            z-index: 10;
+            display: grid;
+            grid-template-columns: 350px 1fr 350px;
+            grid-template-rows: auto 1fr auto;
+            gap: 20px;
+        }
+
+        .panel {
+            background: var(--glass);
+            backdrop-filter: blur(25px);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            padding: 25px;
+            pointer-events: auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+        }
+
+        /* Header Area */
+        .header-panel {
+            grid-column: 1 / 4;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            letter-spacing: 8px;
+            font-weight: 900;
+            background: linear-gradient(90deg, #fff, var(--primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .status-display {
+            display: flex;
+            gap: 20px;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+        }
+
+        .status-item {
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pulse {
+            width: 6px;
+            height: 6px;
+            background: var(--primary);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--primary);
+            animation: pulse-anim 2s infinite;
+        }
+
+        @keyframes pulse-anim {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.3;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* Left Side: Stats */
+        .sidebar-left {
+            grid-row: 2 / 3;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            padding: 20px;
+            border-left: 5px solid var(--primary);
+        }
+
+        .stat-card.secondary {
+            border-left-color: var(--secondary);
+        }
+
+        .label {
+            font-size: 0.65rem;
+            color: var(--primary);
+            letter-spacing: 3px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            opacity: 0.6;
+        }
+
+        .stat-card.secondary .label {
+            color: var(--secondary);
+        }
+
+        .value-row {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+
+        .big-value {
+            font-size: 2.8rem;
+            font-weight: 900;
+            text-shadow: 0 0 20px var(--primary);
+        }
+
+        .stat-card.secondary .big-value {
+            text-shadow: 0 0 20px var(--secondary);
+        }
+
+        .unit {
+            font-size: 1rem;
+            opacity: 0.4;
+            font-family: var(--font-mono);
+        }
+
+        /* Right Side: Log & History */
+        .sidebar-right {
+            grid-row: 2 / 3;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .log-container {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            height: 100%;
+            overflow-y: auto;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .log-entry {
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .log-time {
+            color: var(--primary);
+        }
+
+        /* Chart Area (Bottom) */
+        .bottom-panel {
+            grid-column: 1 / 4;
+            height: 200px;
+            display: flex;
+            gap: 20px;
+        }
+
+        .chart-box {
+            flex: 1;
+            height: 100%;
+            position: relative;
+        }
+
+        /* Center Piece Label */
+        .center-label {
+            grid-column: 2 / 3;
+            grid-row: 2 / 3;
+            align-self: end;
+            text-align: center;
+            padding-bottom: 50px;
+        }
+
+        .center-text {
+            font-size: 0.9rem;
+            letter-spacing: 15px;
+            opacity: 0.3;
+            text-transform: uppercase;
+            font-weight: 900;
+        }
+
+        /* Navigation Menu */
+        #nav-menu {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            pointer-events: auto;
+            z-index: 1000;
+        }
+
+        .nav-link {
+            width: 50px;
+            height: 50px;
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-link:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px var(--primary);
+        }
+
+        /* Loader */
+        .loader {
+            position: fixed;
+            inset: 0;
+            background: var(--bg);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 1s ease;
+        }
+
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 2px;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        @keyframes slide {
+            from {
+                transform: translateX(-100%);
+            }
+
+            to {
+                transform: translateX(200%);
+            }
+        }
+    </style>
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        }
+    }
+</script>
+  <script type="module" crossorigin src="./assets/blockchain--rSPG05u.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/three.module-Co8YQJoG.js">
+</head>
+
+<body>
+
+    <div class="loader" id="loader">
+        <div style="text-align: center;">
+            <div class="label" style="font-size: 1rem; opacity: 1; animation: blink 1s infinite;">CONNECTING TO JIBCHAIN
+                L1...</div>
+            <div
+                style="height: 2px; width: 250px; background: #111; margin-top: 30px; position: relative; overflow: hidden;">
+                <div
+                    style="position: absolute; width: 60%; height: 100%; background: var(--primary); animation: slide 2s infinite linear;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ui-root">
+        <!-- Header -->
+        <header class="panel header-panel">
+            <div class="brand">
+                <h1>BLOCKCHAIN//CORE</h1>
+            </div>
+            <div class="status-display">
+                <div class="status-item">
+                    <div class="pulse"></div> NETWORK: JIBCHAIN
+                </div>
+                <div class="status-item">BLOCK ID: <span id="current-block" style="color:white">...</span></div>
+                <div class="status-item">SYNC: <span style="color:white">REAL-TIME</span></div>
+            </div>
+        </header>
+
+        <!-- Sidebars -->
+        <aside class="sidebar-left">
+            <div class="panel">
+                <div class="label">ATMOSPHERIC CORE</div>
+                <div class="stat-card">
+                    <div class="label">WATER DEPTH</div>
+                    <div class="value-row">
+                        <span class="big-value" id="depth-val">--</span>
+                        <span class="unit">M</span>
+                    </div>
+                </div>
+                <div class="stat-card secondary" style="margin-top:20px">
+                    <div class="label">ENERGY FLUX</div>
+                    <div class="value-row">
+                        <span class="big-value" id="bolt-val">--</span>
+                        <span class="unit">V</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel" style="flex:1">
+                <div class="label">STATION METADATA</div>
+                <div style="margin-top:15px; font-size: 0.85rem; line-height: 1.8;">
+                    <span style="opacity:0.4">ID:</span> <span id="station-id"
+                        style="color:var(--primary)">...</span><br>
+                    <span style="opacity:0.4">NICKNAME:</span> <span id="station-name">SEARCHING...</span><br>
+                    <span style="opacity:0.4">DESCRIPT:</span> <span id="station-desc"
+                        style="font-size: 0.7rem; opacity: 0.8;">Fetching contract data...</span><br>
+                    <span style="opacity:0.4">OWNER:</span> <span id="station-owner"
+                        style="font-family: var(--font-mono); font-size: 0.6rem;">0x...</span>
+                </div>
+            </div>
+        </aside>
+
+        <div class="center-label">
+            <div class="center-text">QUANTUM SENSOR HUB</div>
+        </div>
+
+        <aside class="sidebar-right">
+            <div class="panel" style="height: 100%;">
+                <div class="label">BLOCKCHAIN EVENT LOG</div>
+                <div class="log-container" id="event-log">
+                    <div class="log-entry">Waiting for incoming blocks...</div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Bottom -->
+        <footer class="panel bottom-panel">
+            <div class="chart-box">
+                <div class="label">HOLOGRAPHIC TIMELINE // WATER DEPTH</div>
+                <canvas id="depthChart"></canvas>
+            </div>
+            <div class="chart-box">
+                <div class="label">HOLOGRAPHIC TIMELINE // BATTERY VOLTAGE</div>
+                <canvas id="boltChart"></canvas>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Navigation -->
+    <div id="nav-menu">
+        <a href="index.html" class="nav-link" title="Siam Connect Pro">🚆</a>
+        <a href="travel-map.html" class="nav-link" title="GPS Tracker">🗺️</a>
+        <a href="dustboy-3d.html" class="nav-link" title="DustBoy 3D">🌫️</a>
+    </div>
+
+    <div id="canvas-container"></div>
+
+
+
+
+
+</body>
+
+</html>

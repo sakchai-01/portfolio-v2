@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚡ DUSTBOY CYBER-CORE | Real-time 3D Dashboard</title>
+    <style>
+        :root {
+            --bg: #020205;
+            --accent: #00f2ff;
+            --danger: #ff0055;
+            --white: #ffffff;
+            --glass: rgba(10, 15, 30, 0.4);
+            --border: rgba(0, 242, 255, 0.2);
+        }
+
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background-color: var(--bg);
+            color: var(--white);
+            font-family: 'Outfit', sans-serif;
+            overflow: hidden;
+        }
+
+        #canvas-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Glass UI */
+        .ui-container {
+            position: absolute;
+            inset: 40px;
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            z-index: 10;
+        }
+
+        .header-panel {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .brand {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            padding: 15px 25px;
+            border-radius: 15px;
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .brand h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            letter-spacing: 5px;
+            font-weight: 900;
+            background: linear-gradient(90deg, #fff, var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stats-panel {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            width: 320px;
+            pointer-events: auto;
+        }
+
+        .pm-display {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .pm-value {
+            font-size: 4.5rem;
+            font-weight: 900;
+            text-shadow: 0 0 30px var(--accent);
+            line-height: 1;
+        }
+
+        .pm-unit {
+            font-size: 1rem;
+            opacity: 0.6;
+            font-weight: 300;
+        }
+
+        .label {
+            font-size: 0.7rem;
+            color: var(--accent);
+            letter-spacing: 3px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .status-pill {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 900;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid currentColor;
+            margin-top: 10px;
+        }
+
+        /* Navigation Menu */
+        #nav-menu {
+            position: fixed;
+            top: 50%;
+            right: 40px;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            pointer-events: auto;
+        }
+
+        .nav-link {
+            width: 50px;
+            height: 50px;
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-link:hover {
+            background: var(--accent);
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 0 20px var(--accent);
+            color: black;
+        }
+
+        .details {
+            font-size: 0.85rem;
+            line-height: 2;
+            margin-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 15px;
+            opacity: 0.7;
+        }
+
+        .loader {
+            position: fixed;
+            inset: 0;
+            background: var(--bg);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 1s ease;
+        }
+
+        .glitch-text {
+            animation: glitch 1s infinite linear;
+        }
+
+        @keyframes glitch {
+            0% {
+                transform: translate(0);
+            }
+
+            20% {
+                transform: translate(-2px, 2px);
+                color: var(--danger);
+            }
+
+            40% {
+                transform: translate(2px, -2px);
+                color: var(--accent);
+            }
+
+            60% {
+                transform: translate(-2px, -2px);
+            }
+
+            100% {
+                transform: translate(0);
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;900&display=swap" rel="stylesheet">
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        }
+    }
+</script>
+  <script type="module" crossorigin src="./assets/dustboy-CDqJzDTl.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/three.module-Co8YQJoG.js">
+</head>
+
+<body>
+
+    <div class="loader" id="loader">
+        <div style="text-align: center;">
+            <div class="label glitch-text" style="font-size: 1rem;">INITIALIZING CORE...</div>
+            <div
+                style="height: 2px; width: 200px; background: #333; margin-top: 20px; position: relative; overflow: hidden;">
+                <div
+                    style="position: absolute; width: 60%; height: 100%; background: var(--accent); animation: pulse 2s infinite ease-in-out;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ui-container">
+        <div class="header-panel">
+            <div class="brand">
+                <h1>CORE//VISUALIZER</h1>
+                <div class="label" style="font-size: 0.5rem; opacity: 0.5; margin-top: 5px;">ANTIGRAVITY SYSTEMS //
+                    DUSTBOY V2</div>
+            </div>
+        </div>
+
+        <div class="stats-panel">
+            <div class="label">Atmospheric Density (PM2.5)</div>
+            <div class="pm-display">
+                <span class="pm-value" id="pm25">--</span>
+                <span class="pm-unit">µg/m³</span>
+            </div>
+            <div class="status-pill" id="status">SYNCING...</div>
+
+            <div class="details">
+                STATION: <span id="station" style="color:var(--white)">SEARCHING...</span><br>
+                LOCATION: <span style="color:var(--white)">CHIANG MAI, TH</span><br>
+                TEMP/HUM: <span id="temp">--</span>°C / <span id="hum">--</span>%
+            </div>
+        </div>
+    </div>
+
+    <div id="nav-menu">
+        <a href="index.html" class="nav-link" title="Siam Connect Pro (Game)">🚆</a>
+        <a href="travel-map.html" class="nav-link" title="GPS Map">🗺️</a>
+        <a href="blockchain-sensor.html" class="nav-link" title="Blockchain Scanner">🔗</a>
+    </div>
+
+    <div id="canvas-container"></div>
+
+
+
+
+</body>
+
+</html>
